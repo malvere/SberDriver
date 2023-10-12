@@ -14,7 +14,7 @@ class PrigozhinSelenium:
         self.options = Options()
         self.options.add_argument(f"user-agent={user_agent}")
         self.options.add_argument(f"-headless")
-        self.options.binary_location = whoami()
+        # self.options.binary_location = whoami()
         self.service = Service(executable_path=whoami())
         self.driver: WebDriver
 

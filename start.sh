@@ -11,8 +11,8 @@ if [[ ! -d $STORAGE_DIR/firefox ]]; then
   mkdir -p $STORAGE_DIR/chrome
   cd $STORAGE_DIR/chrome
   wget -P ./ https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=ru
-  tar xjf ./firefox-*.tar.bz2 $STORAGE_DIR/firefox
-  rm firefox-*.tar.bz2
+  tar xjf ./firefox-118.0.2.tar.bz2 $STORAGE_DIR/firefox
+  rm firefox-118.0.2.tar.bz2
   cd $HOME/project/src # Make sure we return to where we were
 else
   echo "...Using Firefox from cache"
