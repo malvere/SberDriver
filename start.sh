@@ -10,7 +10,7 @@ if [[ ! -d $STORAGE_DIR/firefox ]]; then
   echo "...Downloading Firefox"
   mkdir -p $STORAGE_DIR/chrome
   cd $STORAGE_DIR/chrome
-  wget -P ./ https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=ru
+  wget -P ./ https://download-installer.cdn.mozilla.net/pub/firefox/releases/118.0.2/linux-x86_64/ru/firefox-118.0.2.tar.bz2
   tar xjf ./firefox-118.0.2.tar.bz2 $STORAGE_DIR/firefox
   rm firefox-118.0.2.tar.bz2
   cd $HOME/project/src # Make sure we return to where we were
