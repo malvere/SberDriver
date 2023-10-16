@@ -1,16 +1,23 @@
+import asyncio
 from time import sleep
 
+from bot.src.start import start_bot
 from web.driver import PrigozhinSelenium
 
-bot = PrigozhinSelenium()
-bot.raw_go()
+bot = asyncio.run(start_bot())
+driver = PrigozhinSelenium()
+driver.raw_go()
 try:
-    bot.parse()
+    driver.parse()
 except:
     try:
-        cpt = bot.captcha()
+        cpt = driver.captcha()
+        cpt.screenshot()
         print("First try")
+        driver.grace_shutdown()
     except:
         sleep(30)
-        cpt = bot.captcha()
+        cpt = driver.captcha()
+        cpt.screenshot()
         print("Ready! 2nd try")
+        driver.grace_shutdown()

@@ -2,3 +2,4 @@
 .venv
 *.html
 *.png
+bot/.env
