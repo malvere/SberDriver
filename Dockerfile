@@ -52,5 +52,5 @@ RUN set -x \
    && mv geckodriver /usr/bin/
  
 COPY . /app
- 
+
 CMD python ./bot-run.py
