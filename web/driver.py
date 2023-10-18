@@ -21,6 +21,14 @@ class PrigozhinSelenium:
         if is_docker():
             self.service = None
             self.options.binary_location = "/opt/firefox/firefox"
+            self.options.add_argument("--disable-gpu")
+            self.options.add_argument("--disable-extensions")
+            self.options.add_argument("--disable-infobars")
+            self.options.add_argument("--start-maximized")
+            self.options.add_argument("--disable-notifications")
+            self.options.add_argument('--headless')
+            self.options.add_argument('--no-sandbox')
+            self.options.add_argument('--disable-dev-shm-usage')
         else:
             self.service = Service(executable_path=whoami())
 
