@@ -1,8 +1,8 @@
 #%%
-from time import sleep
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from .firefox import NoSuchElementException, Options, Service, WebDriver
 from .plat import is_docker, whoami
@@ -14,8 +14,6 @@ class PrigozhinSelenium:
         self.url = "https://megamarket.ru/catalog/?q=моторное%20масло%205л"
         self.options = Options()
         self.options.add_argument(f"user-agent={user_agent}")
-        # self.options.add_argument(f"-headless")
-        # self.options.binary_location = "/opt/firefox/firefox"
         
         self.driver: WebDriver
         if is_docker():
@@ -45,7 +43,15 @@ class PrigozhinSelenium:
         driver = self.driver
         driver.get(self.url)
         print(driver.title)
-        mobs = driver.find_elements(By.CSS_SELECTOR, '.item-block')
+        mobs = WebDriverWait(self.driver, 20).until(
+            EC.visibility_of_elements_located(
+                (
+                    By.CSS_SELECTOR, 
+                    '.item-block'
+                )
+            )
+        )
+        # mobs = driver.find_elements(By.CSS_SELECTOR, '.item-block')
         if len(mobs) == 0:
             raise NoSuchElementException("Item block is empty, seems like its still loading")
             print("Found 0 items, refreshing")
@@ -63,12 +69,11 @@ class PrigozhinSelenium:
     
     def captcha_found(self):
         try:
+            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, "captcha_image")))
             print("Captcha found: True")
-            Captcha(self.driver)
             return True
         except:
             print("Sleeping and waiting for captcha...")
-            sleep(5)
             return False
 
     
@@ -80,7 +85,6 @@ class PrigozhinSelenium:
     def grace_shutdown(self):
         print("Driver shutdown...")
         self.driver.close()
-        # self.driver.quit()
 
 class Captcha():
     def __init__(self, driver: WebDriver) -> None:

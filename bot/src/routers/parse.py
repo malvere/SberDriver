@@ -21,13 +21,13 @@ async def capcha_handler(message: types.Message):
     except:
         print("First attempt failed. Waiting for captcha")
         try:
-            while True:
-                if web_driver.captcha_found():
-                    cpt = web_driver.captcha()
-                    cpt.screenshot()
-                    print("First try")
-                    f = FSInputFile("test.png")
-                    return await message.answer_photo(photo=f, caption="captcha detected!")
+            if web_driver.captcha_found():
+                cpt = web_driver.captcha()
+                cpt.screenshot()
+                print("First try")
+                f = FSInputFile("test.png")
+                return await message.answer_photo(photo=f, caption="captcha detected!")
+
         except:
             print("something wend super wrong...")
             web_driver.grace_shutdown()

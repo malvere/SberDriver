@@ -16,7 +16,6 @@ async def captcha_handler(msg: types.Message, command: CommandObject):
         cpt = web_driver.captcha()
         cpt.send_keys_to_captcha(command.args)
         cpt.submit()
-        web_driver.parse()
         await msg.reply(text=f"Sent keys: {command.args}")
     else:
         cpt = web_driver.captcha()
